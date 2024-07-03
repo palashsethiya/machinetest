@@ -1,0 +1,37 @@
+name: machinetest
+description: "A new Flutter project."
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.2.3 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+
+  # check device is rotted or not
+  flutter_jailbreak_detection: ^1.10.0
+
+  # API calling
+  http: ^0.13.5
+
+  #firebase
+  firebase_core: ^2.27.0
+  firebase_auth: ^4.16.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/certificate.pem
