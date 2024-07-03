@@ -99,6 +99,8 @@ class _LoginPageState extends State<LoginPage> {
                               if (phone.length != 10) {
                                 Utils.showAlertDialog(context, "Alert..!", "Please enter valid Phone Number");
                               } else {
+                                otp.text = "";
+                                errorMessage = "";
                                 loginUser(phone, context);
                               }
                             },
@@ -175,7 +177,7 @@ class _LoginPageState extends State<LoginPage> {
 
           if (user != null) {
             print("success");
-            Navigator.push(
+            Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
                     builder: (context) => HomeScreen(
@@ -218,7 +220,7 @@ class _LoginPageState extends State<LoginPage> {
 
       if (user != null) {
         print("Success");
-        Navigator.push(
+        Navigator.pushReplacement(
             context,
             MaterialPageRoute(
                 builder: (context) => HomeScreen(
@@ -229,7 +231,7 @@ class _LoginPageState extends State<LoginPage> {
       }
     } on FirebaseAuthException catch (e) {
       setState(() {
-        errorMessage = "${e.code!} : ${e.message!}";
+        errorMessage = "${e.code} : ${e.message!}";
       });
     } catch (e) {
       print(e);
