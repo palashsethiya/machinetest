@@ -22,20 +22,7 @@ class _LoginPageState extends State<LoginPage> {
   bool isLoading = false;
   bool visible = false;
   String errorMessage = "", verificationOTPId = "";
-  bool isRootedDevice = false;
   FirebaseAuth auth = FirebaseAuth.instance;
-
-  @override
-  void initState() {
-    super.initState();
-    Utils.isCheckDeviceRooted(context);
-    checkDeviceRooted();
-    apiService.callAPIUsingSSL();
-  }
-
-  checkDeviceRooted() async {
-    isRootedDevice = await FlutterJailbreakDetection.jailbroken;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -153,9 +140,30 @@ class _LoginPageState extends State<LoginPage> {
                     const SizedBox(
                       height: 16.0,
                     ),
-                    Text(
-                      "Warning : This device is ${isRootedDevice ? "" : "not"} rooted or JailBroken",
-                      style: const TextStyle(color: Colors.black87, fontSize: 14.0, fontWeight: FontWeight.w500),
+                    Align(
+                      alignment: Alignment.center,
+                      child: FractionallySizedBox(
+                          widthFactor: 0.7,
+                          child: ElevatedButton(
+                            child: const Text("Rooted Detection"),
+                            onPressed: () {
+                              Utils.isCheckDeviceRooted(context);
+                            },
+                          )),
+                    ),
+                    const SizedBox(
+                      height: 16.0,
+                    ),
+                    Align(
+                      alignment: Alignment.center,
+                      child: FractionallySizedBox(
+                          widthFactor: 0.7,
+                          child: ElevatedButton(
+                            child: const Text("SSL Pinning"),
+                            onPressed: () {
+                              apiService.callAPIUsingSSL();
+                            },
+                          )),
                     ),
                   ],
                 ),
