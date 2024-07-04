@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_jailbreak_detection/flutter_jailbreak_detection.dart';
 import 'package:machinetest/screens/home_screen.dart';
 import 'package:machinetest/service/api_service.dart';
 import 'package:machinetest/utils/utils.dart';
@@ -21,13 +22,19 @@ class _LoginPageState extends State<LoginPage> {
   bool isLoading = false;
   bool visible = false;
   String errorMessage = "", verificationOTPId = "";
+  bool isRootedDevice = false;
   FirebaseAuth auth = FirebaseAuth.instance;
 
   @override
   void initState() {
     super.initState();
     Utils.isCheckDeviceRooted(context);
+    checkDeviceRooted();
     apiService.callAPIUsingSSL();
+  }
+
+  checkDeviceRooted() async {
+    isRootedDevice = await FlutterJailbreakDetection.jailbroken;
   }
 
   @override
@@ -142,7 +149,14 @@ class _LoginPageState extends State<LoginPage> {
                               }
                             },
                           )),
-                    )
+                    ),
+                    const SizedBox(
+                      height: 16.0,
+                    ),
+                    Text(
+                      "Warning : This device is ${isRootedDevice ? "" : "not"} rooted or JailBroken",
+                      style: const TextStyle(color: Colors.black87, fontSize: 14.0, fontWeight: FontWeight.w500),
+                    ),
                   ],
                 ),
               )),
